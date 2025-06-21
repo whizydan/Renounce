@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:renounce/pages/home/home.dart';
 import 'package:renounce/pages/onboarding/get_started.dart';
 import 'package:renounce/utils/app_theme.dart';
+import 'package:renounce/utils/navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,6 +13,9 @@ void main() async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool hasSeenIntro = prefs.containsKey('intro');
+
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('Africa/Nairobi')); // or your actual timezone
 
   runApp(MyApp(initialPage: hasSeenIntro ? Home() : Onboarding()));
 }
@@ -22,6 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: AppTheme.isDark ? Brightness.dark : Brightness.light,

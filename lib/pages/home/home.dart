@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:renounce/pages/home/part_home.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,7 +13,7 @@ class _HomeState extends State<Home> {
   final Color accent = const Color(0xFF677E74);
 
   final List<Widget> _pages = [
-    Center(child: Text('Home Page')),
+    Center(child: PartHome()),
     Center(child: Text('Notifications')),
     Center(child: Text('Growth Tracking')),
   ];
